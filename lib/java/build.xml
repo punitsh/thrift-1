@@ -37,6 +37,7 @@
   <property name="final.name" value="${thrift.artifactid}-${version}"/>
 
   <property name="src" location="${basedir}/src"/>
+  <property name="ext" location="${basedir}/ext"/> 
   <property name="build.dir" location="${basedir}/build"/>
   <property name="build.lib.dir" location="${build.dir}/lib"/>
   <property name="build.tools.dir" location="${build.dir}/tools"/>
@@ -91,14 +92,14 @@
   </target>
 
   <target name="compile" depends="init">
-    <javac srcdir="${src}" destdir="${build.dir}" source="1.5" target="1.5" 
+    <javac srcdir="${src};${ext}" destdir="${build.dir}" source="1.5" target="1.5" 
     debug="true" classpathref="compile.classpath" includeantruntime="false">
       <compilerarg value="-Xlint:deprecation"/>
     </javac>
   </target>
 
   <target name="javadoc" depends="init">
-    <javadoc sourcepath="${src}" destdir="${javadoc.dir}"
+    <javadoc sourcepath="${src};${ext}" destdir="${javadoc.dir}"
       version="true" windowtitle="Thrift Java API" doctitle="Thrift Java API"
       classpathref="test.classpath">
     </javadoc>
@@ -136,7 +137,7 @@
   </target>
 
   <target name="pack.src">
-    <tar destfile="${source.tar.gz}" basedir="${src}" compression="gzip"/>
+    <tar destfile="${source.tar.gz}" basedir="${src};${ext}" compression="gzip"/>
   </target>
 
   <target name="install" depends="dist,javadoc">
